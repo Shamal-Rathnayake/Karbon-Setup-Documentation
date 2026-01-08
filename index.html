@@ -531,9 +531,29 @@
         </nav>
         <h2 id="initial-system-setup">Initial System Setup</h2>
         <h3 id="update-and-upgrade-packages">Follow initial setup guide</h3>
+        <p id="initial-system-setup">Follow below steps to setup initial system:</p>
         <div class="code-block">
           <div class="code-header"><span class="code-label">bash</span></div>
           <pre><code class="language-bash">https://shamal-rathnayake.github.io/server-setup-guide</code></pre>
+        </div>
+        <p id="initial-system-setup">Adding redirect rules to firewall:</p>
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span></div>
+          <pre><code class="language-bash">sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+sudo iptables -A PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8081</code></pre>
+        </div>
+        <p id="initial-system-setup">View firewall redirect rules:</p>
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span></div>
+          <pre><code class="language-bash">sudo iptables -t nat -L PREROUTING --line-numbers -n -v | grep REDIRECT</code></pre>
+        </div>
+        <p id="initial-system-setup">Remove redirect rules from firewall (IF NEEDED):</p>
+        <div class="code-block">
+          <div class="code-header"><span class="code-label">bash</span></div>
+          <pre><code class="language-bash">sudo iptables -D PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8080
+sudo iptables -D PREROUTING -t nat -i eth0 -p tcp --dport 443 -j REDIRECT --to-port 8080
+sudo iptables -D PREROUTING -t nat -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 8081</code></pre>
         </div>
         <p id="navigate-to-home-directory">Navigate to home directory:</p>
         <div class="code-block">
